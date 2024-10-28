@@ -1,6 +1,34 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+printHelp()
+{
+    cat <<EOF
+Decode and display a JSON Web Token.
+
+Usage: jwt-decode [token]
+
+Example:
+    jwt-decode eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjMiLCJpYXQiOjE1MTYyMzkwMjJ9.qSxzXSZwDRsi3oqx3fBZ2ah8gOIsQZE0Lgkl0kjJ3Ko
+Or:
+    echo eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjMiLCJpYXQiOjE1MTYyMzkwMjJ9.qSxzXSZwDRsi3oqx3fBZ2ah8gOIsQZE0Lgkl0kjJ3Ko | jwt-decode
+EOF
+}
+
+for i in "$@"
+do
+	case "$i" in
+		-h|--help)
+			printHelp
+			exit
+			;;
+		-*)
+			echo "Invalid option: $i"
+			exit 1
+            ;;
+	esac
+done
+
 function printJwt {
     # Split the line on '.'.
     IFS='.' read -a PARTS <<< "$1"

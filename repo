@@ -1,5 +1,28 @@
 #!/usr/bin/env bash
-set -eu
+set -euo pipefail
+
+printHelp()
+{
+    cat <<EOF
+Open the remote repository in your browser.
+
+Usage: repo
+EOF
+}
+
+for i in "$@"
+do
+	case "$i" in
+		-h|--help)
+			printHelp
+			exit
+			;;
+		-*)
+			echo "Invalid option: $i"
+			exit 1
+            ;;
+	esac
+done
 
 # Example remote:
 # origin  git@gitlab.com:path/to/repo.git (fetch)

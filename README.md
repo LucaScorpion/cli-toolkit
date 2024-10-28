@@ -23,3 +23,16 @@ To update the toolkit, simply pull the repo:
 ```shell
 git -C "$HOME/bin/cli-toolkit" pull
 ```
+
+## Tools
+
+A brief overview of all available scripts.
+For more information on how to use each script, call it with the `--help` option.
+
+| Script          | Description                                      |
+|-----------------|--------------------------------------------------|
+| `browser`       | Pipe HTML to your browser.                       |
+| `composer-link` | Link a Composer dependency to a local directory. |
+| `jwt-decode`    | Decode and display a JSON Web Token.             |
+| `repo`          | Open the remote repository in your browser.      |
+| `vpn`           | Connect to a VPN profile.                        |

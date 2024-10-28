@@ -1,10 +1,34 @@
 #!/usr/bin/env bash
-set -eu
+set -euo pipefail
 
-# Usage: composer-link ../local-package package/name
-# Where:
-#   ../local-package is the path to the package code on the filesystem
-#   package/name is the composer name of that package
+printHelp()
+{
+    cat <<EOF
+Link a Composer dependency to a local directory.
+
+Usage: composer-link <path> <package> [repository]
+
+Example:
+    composer-link ../local-package package/name
+Where:
+    "../local-package" is the path to the package code on the filesystem;
+    "package/name" is the composer name of that package.
+EOF
+}
+
+for i in "$@"
+do
+	case "$i" in
+		-h|--help)
+			printHelp
+			exit
+			;;
+		-*)
+			echo "Invalid option: $i"
+			exit 1
+            ;;
+	esac
+done
 
 repositoryName=${3:-local}
 composer config repositories.$repositoryName '{"type": "path", "url": "'$1'", "options": {"symlink": true}}' --file composer.json

@@ -3,10 +3,40 @@ set -euo pipefail
 
 vpnDir="$HOME/Documents/vpn"
 
+
+printHelp()
+{
+    cat <<EOF
+Connect to a VPN profile.
+
+Usage: vpn [profile]
+
+Example:
+    vpn office
+Where:
+    an "office.ovpn" file exists in the VPN profile directory ($vpnDir);
+    an "office_pass.txt" file exists in the VPN profile directory (if required).
+EOF
+}
+
+for i in "$@"
+do
+	case "$i" in
+		-h|--help)
+			printHelp
+			exit
+			;;
+		-*)
+			echo "Invalid option: $i"
+			exit 1
+            ;;
+	esac
+done
+
 # If no argument is given, list the VPN configs.
 if [ -z ${1+x} ]
 then
-    echo 'Available VPN files:'
+    echo 'Available VPN profiles:'
 
     for file in "$vpnDir/"*".ovpn"
     do
@@ -26,13 +56,13 @@ passFile="$vpnDir/$1_pass.txt"
 # Check if a name is given.
 if [ ! -f "$ovpnFile" ]
 then
-    echo "No VPN file found for '$1'"
+    echo "No VPN profile found for '$1'"
     exit 1
 fi
 
 vpnCommand="sudo openvpn --config $ovpnFile"
 
-# Check if a pass file exists, if so, add a flag to the command.
+# Check if a pass file exists. If so, add a flag to the command.
 if [ -f "$passFile" ]
 then
     vpnCommand="$vpnCommand --auth-user-pass $passFile"

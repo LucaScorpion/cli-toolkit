@@ -1,17 +1,41 @@
 #!/usr/bin/env bash
-set -eu
+set -euo pipefail
+
+printHelp()
+{
+    cat <<EOF
+Pipe HTML to your browser.
+
+Usage: [...] | browser
+
+Example:
+    echo '<h1>Hello world</h1>' | browser
+EOF
+}
+
+while (( $# > 0 ))
+do
+	case "$1" in
+		-h|--help)
+			printHelp
+			exit
+			;;
+		-*)
+			echo "Invalid option: $1"
+			exit 1
+            ;;
+	esac
+	shift
+done
 
 # Check if stdin is a terminal.
 if [ -t 0 ]
 then
-    cat <<EOF
-Usage: browser
-       pipe html to a browser
-
-$ echo '<h1>Hello world</h1>' | browser
-EOF
+    printHelp
 else
+    # Write the command output to a random temporary file.
     f="/tmp/browser.$RANDOM.html"
     cat /dev/stdin > "$f"
+    # Open the file in the browser.
     "$BROWSER" "$f"
 fi
