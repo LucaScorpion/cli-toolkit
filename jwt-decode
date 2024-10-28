@@ -17,16 +17,16 @@ EOF
 
 for i in "$@"
 do
-	case "$i" in
-		-h|--help)
-			printHelp
-			exit
-			;;
-		-*)
-			echo "Invalid option: $i"
-			exit 1
+    case "$i" in
+        -h|--help)
+            printHelp
+            exit
             ;;
-	esac
+        -*)
+            echo "Invalid option: $i"
+            exit 1
+            ;;
+    esac
 done
 
 function printJwt {

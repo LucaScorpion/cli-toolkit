@@ -13,19 +13,18 @@ Example:
 EOF
 }
 
-while (( $# > 0 ))
+for i in "$@"
 do
-	case "$1" in
-		-h|--help)
-			printHelp
-			exit
-			;;
-		-*)
-			echo "Invalid option: $1"
-			exit 1
+    case "$i" in
+        -h|--help)
+            printHelp
+            exit
             ;;
-	esac
-	shift
+        -*)
+            echo "Invalid option: $i"
+            exit 1
+            ;;
+    esac
 done
 
 # Check if stdin is a terminal.
