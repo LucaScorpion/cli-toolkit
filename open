@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+
+# "open" is defined as a script instead of an alias, because some script that use sh will use "open",
+# and sh does not seem to load aliases from ~/.bashrc.
+
+xdg-open "$@"
