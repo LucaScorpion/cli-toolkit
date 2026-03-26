@@ -4,9 +4,9 @@ set -euo pipefail
 printHelp()
 {
     cat <<EOF
-Open the current branch of the repository in the compare view in your browser.
+Open the pull request of the current branch in your browser.
 
-Usage: branch
+Usage: pr
 EOF
 }
 
@@ -41,8 +41,7 @@ repo=$(git remote -v \
 
 branch=$(git branch --show-current)
 
-# Add "/compare/main...<branch>" to the url, to go to the compare view.
-# Note that we assume "main" as the main branch.
-url="https://$repo/compare/main...$branch"
+# Add "/pull/<branch>" to the url, to go to pull request.
+url="https://$repo/pull/$branch"
 
 "$BROWSER" "$url" &

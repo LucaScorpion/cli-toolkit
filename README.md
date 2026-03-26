@@ -31,9 +31,9 @@ For more information on how to use each script, call it with the `--help` option
 
 | Script          | Description                                                             |
 |-----------------|-------------------------------------------------------------------------|
-| `branch`        | Open the current repository branch in the compare view in your browser. |
 | `browser`       | Pipe HTML to your browser.                                              |
 | `composer-link` | Link a Composer dependency to a local directory.                        |
 | `jwt-decode`    | Decode and display a JSON Web Token.                                    |
+| `pr`            | Open the pull request of the current branch in your browser.            |
 | `repo`          | Open the remote repository in your browser.                             |
 | `vpn`           | Connect to a VPN profile.                                               |
