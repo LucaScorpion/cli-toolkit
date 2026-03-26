@@ -6,7 +6,7 @@ printHelp()
     cat <<EOF
 Open the pull request of the current branch in your browser.
 
-Usage: pr
+Usage: gpr
 EOF
 }
 
