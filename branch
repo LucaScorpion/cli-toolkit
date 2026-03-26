@@ -1,0 +1,48 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+printHelp()
+{
+    cat <<EOF
+Open the current branch of the repository in your browser.
+
+Usage: branch
+EOF
+}
+
+for i in "$@"
+do
+    case "$i" in
+        -h|--help)
+            printHelp
+            exit
+            ;;
+        -*)
+            echo "Invalid option: $i"
+            exit 1
+            ;;
+    esac
+done
+
+# Example remote:
+# origin  git@gitlab.com:path/to/repo.git (fetch)
+
+# Step by step:
+# Only get the first line from the remotes.
+# Remove everything up to the '@'.
+# Remove everything from the '.git' url suffix.
+# Replace the ':' with a '/'.
+repo=$(git remote -v \
+    | head -n 1 \
+    | sed 's/.*@//' \
+    | sed 's/\.git.*//' \
+    | sed 's/:/\//' \
+)
+
+branch=$(git branch --show-current)
+
+# Add "/compare/main...<branch>" to the url, to go to the compare view.
+# Note that we assume "main" as the main branch.
+url="https://$repo/compare/main...$branch"
+
+"$BROWSER" "$url" &
