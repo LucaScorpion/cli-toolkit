@@ -4,7 +4,7 @@ set -euo pipefail
 printHelp()
 {
     cat <<EOF
-Open the current branch of the repository in your browser.
+Open the current branch of the repository in the compare view in your browser.
 
 Usage: branch
 EOF
